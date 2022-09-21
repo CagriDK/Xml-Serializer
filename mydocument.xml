@@ -1,0 +1,19 @@
+class Myclass{
+public:
+	Myclass();
+	~Myclass();
+private:
+	int iTest;
+	bool bTest;
+	short sTest;
+};
+
+class Furious: public Myclass {
+public:
+	Furious()=default;
+	~Furious();
+	void Function();
+	bool Literature(int a,int b);
+private:
+	int fInt;
+};
