@@ -17,3 +17,14 @@ public:
 private:
 	int fInt;
 };
+
+class test{
+	Furious ses();
+	test();
+	~test();
+public:
+	Furious test;
+	struct st1;
+	void test();
+	long lTest;
+};
