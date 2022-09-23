@@ -38,7 +38,7 @@ public:
         std::vector<std::string> variableTypes={
             "void","char","bool","int","double","float",
             "unsigned long","signed long","long","short",
-            "signed short","unsigned short"};
+            "signed short","struct","unsigned short"};
         while(std::getline(xmlFile,line)){
             QString QStringLine=QString::fromStdString(line);
 
@@ -102,7 +102,7 @@ public:
 
             classMembers temp;
 
-            if(k>=12){
+            if(k>=13){
                 int classCount=variableTypeSize-12; // 3 gelecek
 
                 if(!(k>=(variableTypeSize-classCount+whichClass))){
@@ -111,8 +111,6 @@ public:
                     QStringLine.remove("");
                     QStringLine.remove(" ");
                     QStringLine.remove(";");
-
-
 
                     temp.variableName=QStringLine.toStdString();;
                     temp.variableType=classMembers::memberType::Class;
@@ -151,6 +149,7 @@ public:
                 QStringLine.remove("");
                 QStringLine.remove(" ");
                 QStringLine.remove("{");
+                QStringLine.remove("\t");
 
                 temp.variableName=QStringLine.toStdString();
                 temp.variableType=classMembers::memberType::Struct;

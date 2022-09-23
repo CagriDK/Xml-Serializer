@@ -3,6 +3,7 @@ public:
 	Myclass();
 	~Myclass();
 private:
+	struct viaMine;
 	int iTest;
 	bool bTest;
 	short sTest;
