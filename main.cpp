@@ -17,6 +17,7 @@ public:
 
         std::string variableName;
         memberType variableType;
+        std::string variableTypeName;
     };
 
     struct classListStructure{
@@ -114,6 +115,7 @@ public:
 
                     temp.variableName=QStringLine.toStdString();;
                     temp.variableType=classMembers::memberType::Class;
+                    temp.variableTypeName=n;
                 }
                 else {
                 return;
@@ -130,6 +132,7 @@ public:
 
                 temp.variableName=QStringLine.toStdString();
                 temp.variableType=classMembers::memberType::Function;
+                temp.variableTypeName=n;
             }
 
             else if(QStringLine.contains("["))
@@ -141,6 +144,7 @@ public:
 
                 temp.variableName=QStringLine.toStdString();
                 temp.variableType=classMembers::memberType::Array;
+                temp.variableTypeName=n;
             }
 
             else if(QStringLine.contains("struct"))
@@ -153,6 +157,7 @@ public:
 
                 temp.variableName=QStringLine.toStdString();
                 temp.variableType=classMembers::memberType::Struct;
+                temp.variableTypeName=n;
             }
 
             else if(QStringLine.contains("class "))
@@ -165,6 +170,7 @@ public:
 
                 temp.variableName=QStringLine.toStdString();
                 temp.variableType=classMembers::memberType::Class;
+                temp.variableTypeName=n;
             }
 
             else {
@@ -175,6 +181,7 @@ public:
 
                 temp.variableName=QStringLine.toStdString();
                 temp.variableType=classMembers::memberType::Variable;
+                temp.variableTypeName=n;
             }
             m_temp.classVariables.push_back(temp);
             //classVariables.push_back(temp);
