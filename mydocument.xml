@@ -11,6 +11,7 @@ private:
 
 class Furious: public Myclass {
 public:
+	Myclass a1;
 	Furious()=default;
 	~Furious();
 	void Function();

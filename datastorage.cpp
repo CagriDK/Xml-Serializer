@@ -17,7 +17,7 @@ void DataStorage::readTextFile(std::string filepath){
     while(std::getline(xmlFile,line)){
         QString QStringLine=QString::fromStdString(line);
 
-        if(QStringLine.contains("class "))
+        if(QStringLine.contains("class ") && !(QStringLine.contains(";")))
         {
             QStringLine.remove("class ");
             QStringLine.remove("");
@@ -78,14 +78,15 @@ void DataStorage::getVariables(const std::string &n, int k, int variableTypeSize
         classMembers temp;
 
         if(k>=13){
-            int classCount=variableTypeSize-12; // 3 gelecek
+            int classCount=variableTypeSize-13; // 3 gelecek
 
-            if(!(k>=(variableTypeSize-classCount+whichClass))){
+            if((variableTypeSize-classCount+whichClass)>k){
                 //If different from predefined variable types check for class types. keyword:variableTypes {#predefinedtypes} extra means nested class present.
                 QStringLine.remove(QString::fromStdString(n));
                 QStringLine.remove("");
                 QStringLine.remove(" ");
                 QStringLine.remove(";");
+                QStringLine.remove("\t");
 
                 temp.variableName=QStringLine.toStdString();;
                 temp.variableType=classMembers::memberType::Class;
