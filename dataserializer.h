@@ -1,6 +1,6 @@
 #ifndef DATASERIALIZER_H
 #define DATASERIALIZER_H
-
+#include <QDomDocument>
 #include <datastorage.h>
 
 #define GETSET(Type, MemberName, FaceName) \

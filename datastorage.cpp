@@ -57,7 +57,6 @@ void DataStorage::readTextFile(std::string filepath){
         {
             for(short k=0;k<static_cast<short>(variableTypes.size());k++)
             {
-                qDebug()<<variableTypes.size();
                 int variableTypeSize=variableTypes.size();
                 getVariables(variableTypes.at(k),k,variableTypeSize,i,classQStringList[i][j].toStdString());
             };

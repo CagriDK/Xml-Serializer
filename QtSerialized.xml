@@ -13,7 +13,7 @@ private:
 	short sTest;
 };
 
-class Furious: public Myclass {
+class Furious: public Myclass{
 public:
 	Myclass a1;
 	Furious()=default;

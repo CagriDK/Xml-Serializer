@@ -25,7 +25,7 @@ private:
 };
 
 class test{
-	Furious ses;
+	Furious ses();
 	test();
 	~test();
 public:

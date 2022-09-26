@@ -11,9 +11,8 @@ int main(int argc, char *argv[])
     std::unique_ptr<DataStorage> t1=std::make_unique<DataStorage>();
     t1->readTextFile(filePath);
 
-    std::string modifyFile="C:/Users/cagri/OneDrive/Documents/pugi_example/test.cpp";
+    std::string modifyFile="C:/Projects/Xml-Serializer/QtSerialized.xml";
     std::unique_ptr<DataSerializer> t2=std::make_unique<DataSerializer>(modifyFile,t1->GetmClassListStorage());
-    //t2->SetmClassListSerializer(t1->GetmClassListStorage());
 
     return a.exec();
 }
