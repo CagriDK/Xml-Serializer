@@ -1,9 +1,13 @@
+struct tuale{
+	int tuale_int;
+};
+
 class Myclass{
 public:
 	Myclass();
 	~Myclass();
 private:
-	struct viaMine;
+	struct viaMine[4];
 	int iTest;
 	bool bTest;
 	short sTest;

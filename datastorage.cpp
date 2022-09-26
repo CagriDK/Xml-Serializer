@@ -17,9 +17,10 @@ void DataStorage::readTextFile(std::string filepath){
     while(std::getline(xmlFile,line)){
         QString QStringLine=QString::fromStdString(line);
 
-        if(QStringLine.contains("class ") && !(QStringLine.contains(";")))
+        if((QStringLine.contains("class ") || QStringLine.contains("struct")) && !(QStringLine.contains(";")))
         {
             QStringLine.remove("class ");
+            QStringLine.remove("struct ");
             QStringLine.remove("");
             QStringLine.remove(" ");
             QStringLine.remove(";");
@@ -91,6 +92,7 @@ void DataStorage::getVariables(const std::string &n, int k, int variableTypeSize
                 temp.variableName=QStringLine.toStdString();;
                 temp.variableType=classMembers::memberType::Class;
                 temp.variableTypeName=n;
+
             }
             else {
                 return;
@@ -147,6 +149,8 @@ void DataStorage::getVariables(const std::string &n, int k, int variableTypeSize
             temp.variableType=classMembers::memberType::Class;
             temp.variableTypeName=n;
         }
+
+
 
         else {
             QStringLine.remove("\t");

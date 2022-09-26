@@ -20,11 +20,12 @@ public:
 
     struct classMembers{
         classMembers():variableName(),variableType(memberType::Variable){}
-        enum class memberType{Variable=0,Function=1,Array=2,Struct=3,Class=4};
+        enum class memberType{Variable=0,Function=1,Array=2,Struct=3,Class=4,StructArray=5};
 
         std::string variableName;
         memberType variableType;
         std::string variableTypeName;
+        std::string arrVariableNumber; // double var[8] // ---> 8 <---  // struct st1[7]  // ---> 7 <---  //
     };
 
     struct classListStructure{

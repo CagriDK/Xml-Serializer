@@ -15,6 +15,5 @@ int main(int argc, char *argv[])
     std::unique_ptr<DataSerializer> t2=std::make_unique<DataSerializer>(modifyFile,t1->GetmClassListStorage());
     //t2->SetmClassListSerializer(t1->GetmClassListStorage());
 
-
     return a.exec();
 }
