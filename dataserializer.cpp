@@ -8,10 +8,11 @@
 #define mClass DataStorage::classMembers::memberType::Class
 #define mFunction DataStorage::classMembers::memberType::Function
 
-DataSerializer::DataSerializer(std::string initFilePath, std::vector<DataStorage::classListStructure> initClassList):
-    filePath(initFilePath),
-    classList(initClassList)
+DataSerializer::DataSerializer(std::string initFilePath):
+    filePath(initFilePath)
 {
+    t1=std::make_unique<DataStorage>(filePath);
+    classList=t1->GetmClassListStorage();
     fileModifier(filePath,classList);
 }
 

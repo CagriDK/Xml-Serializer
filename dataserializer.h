@@ -13,7 +13,7 @@
 
 class DataSerializer{
 public:
-    DataSerializer(std::string initFilePath,std::vector<DataStorage::classListStructure> initClassList);
+    DataSerializer(std::string initFilePath);
 
 public:
     void fileModifier(std::string m_filePath,std::vector<DataStorage::classListStructure> m_classList);
@@ -24,6 +24,8 @@ private:
 
     std::string filePath;
     std::vector<DataStorage::classListStructure> classList;
+
+    std::unique_ptr<DataStorage> t1;
 };
 
 #endif // DATASERIALIZER_H
