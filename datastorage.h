@@ -16,8 +16,11 @@
          }
 
 class DataStorage{
-public:
 
+public:
+    DataStorage(std::string filePath):mFilePath(filePath){
+        readTextFile(filePath);
+    };
     struct classMembers{
         classMembers():variableName(),variableType(memberType::Variable){}
         enum class memberType{Variable=0,Function=1,Array=2,Struct=3,Class=4,StructArray=5};
@@ -48,6 +51,7 @@ private:
     std::vector<classListStructure> classList;
     classListStructure m_temp;
     std::vector<std::string> tempClassNames;
+    std::string mFilePath;
 
     //std::vector<std::vector<classMembers>> classList;
 };
