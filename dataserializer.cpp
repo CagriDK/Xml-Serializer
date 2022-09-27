@@ -18,13 +18,13 @@ DataSerializer::DataSerializer(std::string initFilePath, std::vector<DataStorage
 void DataSerializer::fileModifier(std::string m_filePath, std::vector<DataStorage::classListStructure> m_classList)
 {
     std::ifstream xmlFile;
-    xmlFile.open("C:/Projects/Xml-Serializer/QtSerialized.cpp");
+    xmlFile.open(m_filePath);
     if(!xmlFile.is_open())
     {qWarning()<<"File couldn't opened";}
     std::string line;
 
     std::ofstream fullText;
-    fullText.open("C:/Projects/Xml-Serializer/QtSerialized_output.cpp");
+    fullText.open(m_filePath);
     std::vector<std::string> classLines;
 
     while(std::getline(xmlFile,line)){

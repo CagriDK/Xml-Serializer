@@ -14,11 +14,31 @@ void DataStorage::readTextFile(std::string filepath){
         "void","char","bool","int","double","float",
         "unsigned long","signed long","long","short",
         "signed short","struct","unsigned short"};
+
     while(std::getline(xmlFile,line)){
         QString QStringLine=QString::fromStdString(line);
 
-        if((QStringLine.contains("class ") || QStringLine.contains("struct")) && !(QStringLine.contains(";")))
+        if(isNewClass)
         {
+            QStringLineList.push_back(QStringLine);
+        }
+
+        if(QStringLine.contains("//"))
+        {
+            QStringLine="";
+        }
+
+
+        if((QStringLine.contains("class ") || QStringLine.contains("struct")) && !(QStringLine.contains(";")) && !QStringLine.contains("template"))
+        {
+            if(isNewClass){
+                if(classCounter!=0){
+                    classQStringList.push_back(QStringLineList);
+                }
+                QStringLineList.clear();
+                isNewClass=false;
+            }
+
             QStringLine.remove("class ");
             QStringLine.remove("struct ");
             QStringLine.remove("");
@@ -36,23 +56,15 @@ void DataStorage::readTextFile(std::string filepath){
             classCounter++;
         }
 
-        if(isNewClass)
-        {
-            QStringLineList.push_back(QStringLine);
-        }
 
-        if(QStringLine.contains("};"))
-        {
-            if(classCounter!=0){
-                classQStringList.push_back(QStringLineList);
-            }
-            QStringLineList.clear();
-            isNewClass=false;
-        }
     }
+
+    classQStringList.push_back(QStringLineList);
 
     for(unsigned long long i=0; i<classQStringList.size();i++)
     {
+        m_temp.className=tempClassNames.at(i); //Will be used at code.
+
         for(unsigned long long j=0; j<classQStringList[i].size();j++)
         {
             for(short k=0;k<static_cast<short>(variableTypes.size());k++)
@@ -61,7 +73,8 @@ void DataStorage::readTextFile(std::string filepath){
                 getVariables(variableTypes.at(k),k,variableTypeSize,i,classQStringList[i][j].toStdString());
             };
         }
-        m_temp.className=tempClassNames.at(i);
+
+
         classList.push_back(m_temp);
         m_temp.classVariables.clear();
         m_temp.className="";
@@ -72,6 +85,16 @@ void DataStorage::getVariables(const std::string &n, int k, int variableTypeSize
 {
     QString QStringLine=QString::fromStdString(m);
 
+    if(QStringLine.contains("//"))
+    {
+        QStringLine="";
+    }
+
+    if(QStringLine.contains("int main("))
+    {
+        QStringLine="";
+    }
+
     if(QStringLine.contains(QString::fromStdString(n)))
     {
 
@@ -80,7 +103,7 @@ void DataStorage::getVariables(const std::string &n, int k, int variableTypeSize
         if(k>=13){
             int classCount=variableTypeSize-13; // 3 gelecek
 
-            if((variableTypeSize-classCount+whichClass)>k){
+            if((variableTypeSize-classCount+whichClass)>k+1){
                 //If different from predefined variable types check for class types. keyword:variableTypes {#predefinedtypes} extra means nested class present.
                 QStringLine.remove(QString::fromStdString(n));
                 QStringLine.remove("");
@@ -101,6 +124,10 @@ void DataStorage::getVariables(const std::string &n, int k, int variableTypeSize
 
         else if(QStringLine.contains("("))
         {
+            if(QStringLine.contains(QString::fromStdString(m_temp.className))){
+                return;
+            }
+
             QStringLine.remove("\t");
             QStringLine.remove(QString::fromStdString(n));
             QStringLine.remove(" ");

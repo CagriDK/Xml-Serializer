@@ -1,63 +1,81 @@
-struct tuale{
-	int tuale_int;
-};
+#include <QCoreApplication>
+#include <iostream>
+#include <boost/archive/xml_oarchive.hpp>
+#include <fstream>
 
-class Myclass{
-private:
- 	 friend class boost::serialization::access;
-
- 	 template<class Archive>
-	 void serialize(Archive & ar, const unsigned int /*version*/){
- 		ar & BOOST_SERIALIZATION_NVP(iTest);
- 		ar & BOOST_SERIALIZATION_NVP(bTest);
- 		ar & BOOST_SERIALIZATION_NVP(sTest);
-}
+class Data
+{
 public:
-	Myclass();
-	~Myclass();
-private:
-	struct viaMine[4];
-	int iTest;
-	bool bTest;
-	short sTest;
+    int Degrees;
+    int Minutes;
+    float Seconds;
+//private:
+//
+//    friend class boost::serialization::access;
+//
+//    template<class Archive>
+//    void serialize(Archive & ar, const unsigned int /*version*/){
+//        ar & BOOST_SERIALIZATION_NVP(Degrees);
+//        ar & BOOST_SERIALIZATION_NVP(Minutes);
+//        ar & BOOST_SERIALIZATION_NVP(Seconds);
+//    }
+
 };
 
-class Furious: public Myclass {
-private:
- 	 friend class boost::serialization::access;
+class Position
+{
 
- 	 template<class Archive>
-	 void serialize(Archive & ar, const unsigned int /*version*/){
- 		ar & boost::serialization::make_nvp(Furious,a1);
- 		ar & BOOST_SERIALIZATION_NVP(fInt);
-}
 public:
-	Myclass a1;
-	Furious()=default;
-	~Furious();
-	void Function();
-	bool Literature(int a,int b);
-private:
-	int fInt;
+    // every serializable class needs a constructor
+    Position() {
+        Degrees = 0;
+        Minutes = 0;
+        Seconds = 0;
+    };
+    Position(int degrees, int minutes, float seconds){
+        Degrees = degrees;
+        Minutes = minutes;
+        Seconds = seconds;
+    };
+    int Degrees;
+    int Minutes;
+    float Seconds;
+    Data data;
+    Data data2;
+
+//private:
+//    friend class boost::serialization::access;
+//
+//    template<class Archive>
+//    void serialize(Archive & ar, const unsigned int /*version*/){
+//        ar & BOOST_SERIALIZATION_NVP(Degrees);
+//        ar & BOOST_SERIALIZATION_NVP(Minutes);
+//        ar & BOOST_SERIALIZATION_NVP(Seconds);
+//        ar & boost::serialization::make_nvp("data", data);
+//        ar & boost::serialization::make_nvp("data", data2);
+//    }
 };
 
-class test{
-private:
- 	 friend class boost::serialization::access;
 
- 	 template<class Archive>
-	 void serialize(Archive & ar, const unsigned int /*version*/){
- 		ar & boost::serialization::make_nvp(test,ses);
- 		ar & boost::serialization::make_nvp(test,test);
- 		ar & boost::serialization::make_nvp(test,st1;);
- 		ar & BOOST_SERIALIZATION_NVP(lTest);
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+    Position position;
+        position.Degrees = 1;
+        position.Minutes = 2;
+        position.Seconds = 3;
+        position.data = {1,2,3};
+        position.data2 = {4,5,6};
+
+        {
+            std::ofstream ofs("C:/Users/cagri/OneDrive/Documents/pugi_example/output.xml");
+            boost::archive::xml_oarchive oa(ofs);
+
+            oa << BOOST_SERIALIZATION_NVP(position);
+        }
+
+    return a.exec();
 }
-	Furious ses();
-	test();
-	~test();
-public:
-	Furious test;
-	struct st1;
-	void test();
-	long lTest;
-};
+
+
+
