@@ -1,4 +1,4 @@
-#include <dataserializer.h>
+  #include <dataserializer.h>
 #include <iostream>
 #include <fstream>
 
@@ -71,10 +71,5 @@ void DataSerializer::fileModifier(std::string m_filePath, std::vector<DataStorag
                 fullText << "\n";
             }
         }
-
-
-
     }
-
-//    QFile f()
 }

@@ -22,7 +22,7 @@ public:
 
 private:
 
-    std::string filePath;
+    const std::string filePath;
     std::vector<DataStorage::classListStructure> classList;
 
     std::unique_ptr<DataStorage> t1;

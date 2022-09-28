@@ -1,13 +1,20 @@
 #include<datastorage.h>
 
+DataStorage::DataStorage(std::string filePath):
+    classCounter(0),
+    mFilePath(filePath),
+    isNewClass(false)
+{
+    readTextFile(filePath);
+}
+
 void DataStorage::readTextFile(std::string filepath){
     std::ifstream xmlFile;
     xmlFile.open(filepath);
     if(!xmlFile.is_open())
     {qWarning()<<"File couldn't opened";}
     std::string line;
-    bool isNewClass=false;
-    classCounter=0;
+
     std::vector<QString> QStringLineList; //Holds QStringLines for one class
     std::vector<std::vector<QString>> classQStringList; //Holds All the classes for QStringLinesList
     std::vector<std::string> variableTypes={
